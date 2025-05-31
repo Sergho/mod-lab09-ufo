@@ -117,11 +117,12 @@ partial class MainForm
         // canvasPanel
         // 
         canvasPanel.BackColor = SystemColors.ControlLightLight;
-        canvasPanel.Dock = DockStyle.Fill;
-        canvasPanel.Location = new Point(0, 0);
+        canvasPanel.Dock = DockStyle.Right;
+        canvasPanel.Location = new Point(330, 0);
         canvasPanel.Name = "canvasPanel";
-        canvasPanel.Size = new Size(800, 450);
+        canvasPanel.Size = new Size(470, 450);
         canvasPanel.TabIndex = 1;
+        canvasPanel.Paint += canvasPanel_Paint;
         // 
         // MainForm
         // 
