@@ -36,12 +36,16 @@ partial class MainForm
         toLabelText = new Label();
         fromLabelText = new Label();
         canvasPanel = new Panel();
+        epsilonLabelText = new Label();
+        epsilonLabel = new Label();
         controlPanel.SuspendLayout();
         SuspendLayout();
         // 
         // controlPanel
         // 
         controlPanel.BackColor = SystemColors.Control;
+        controlPanel.Controls.Add(epsilonLabel);
+        controlPanel.Controls.Add(epsilonLabelText);
         controlPanel.Controls.Add(singleButton);
         controlPanel.Controls.Add(multipleButton);
         controlPanel.Controls.Add(toLabel);
@@ -51,27 +55,28 @@ partial class MainForm
         controlPanel.Dock = DockStyle.Left;
         controlPanel.Location = new Point(0, 0);
         controlPanel.Name = "controlPanel";
-        controlPanel.Size = new Size(324, 450);
+        controlPanel.Size = new Size(304, 620);
         controlPanel.TabIndex = 0;
         // 
         // singleButton
         // 
         singleButton.Dock = DockStyle.Bottom;
         singleButton.Font = new Font("Segoe UI", 16F);
-        singleButton.Location = new Point(0, 299);
+        singleButton.Location = new Point(0, 469);
         singleButton.Name = "singleButton";
-        singleButton.Size = new Size(324, 76);
+        singleButton.Size = new Size(304, 76);
         singleButton.TabIndex = 5;
         singleButton.Text = "Single Simulation";
         singleButton.UseVisualStyleBackColor = true;
+        singleButton.Click += singleButton_Click;
         // 
         // multipleButton
         // 
         multipleButton.Dock = DockStyle.Bottom;
         multipleButton.Font = new Font("Segoe UI", 16F);
-        multipleButton.Location = new Point(0, 375);
+        multipleButton.Location = new Point(0, 545);
         multipleButton.Name = "multipleButton";
-        multipleButton.Size = new Size(324, 75);
+        multipleButton.Size = new Size(304, 75);
         multipleButton.TabIndex = 4;
         multipleButton.Text = "Multiple Simulation";
         multipleButton.UseVisualStyleBackColor = true;
@@ -118,16 +123,35 @@ partial class MainForm
         // 
         canvasPanel.BackColor = SystemColors.ControlLightLight;
         canvasPanel.Dock = DockStyle.Right;
-        canvasPanel.Location = new Point(330, 0);
+        canvasPanel.Location = new Point(310, 0);
         canvasPanel.Name = "canvasPanel";
-        canvasPanel.Size = new Size(470, 450);
+        canvasPanel.Size = new Size(340, 620);
         canvasPanel.TabIndex = 1;
         canvasPanel.Paint += canvasPanel_Paint;
+        // 
+        // epsilonLabelText
+        // 
+        epsilonLabelText.AutoSize = true;
+        epsilonLabelText.Font = new Font("Segoe UI", 16F);
+        epsilonLabelText.Location = new Point(12, 100);
+        epsilonLabelText.Name = "epsilonLabelText";
+        epsilonLabelText.Size = new Size(86, 30);
+        epsilonLabelText.TabIndex = 6;
+        epsilonLabelText.Text = "Epsilon:";
+        // 
+        // epsilonLabel
+        // 
+        epsilonLabel.AutoSize = true;
+        epsilonLabel.Font = new Font("Segoe UI", 16F);
+        epsilonLabel.Location = new Point(108, 100);
+        epsilonLabel.Name = "epsilonLabel";
+        epsilonLabel.Size = new Size(0, 30);
+        epsilonLabel.TabIndex = 7;
         // 
         // MainForm
         // 
         AutoScaleMode = AutoScaleMode.Inherit;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(650, 620);
         Controls.Add(controlPanel);
         Controls.Add(canvasPanel);
         Name = "MainForm";
@@ -147,4 +171,6 @@ partial class MainForm
     private Label toLabelText;
     private Label fromLabelText;
     private Button singleButton;
+    private Label epsilonLabelText;
+    private Label epsilonLabel;
 }
