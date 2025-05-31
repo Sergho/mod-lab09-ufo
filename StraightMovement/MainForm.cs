@@ -12,6 +12,7 @@ public partial class MainForm : Form
     private readonly int stepSize = 5;
     private readonly int singleEpsilon = 1;
     private readonly int epsilonMax = 25;
+    private readonly string dataFilename = "../../../../result/data.txt";
     private SimulationAction action = SimulationAction.Idle;
     public MainForm()
     {
@@ -92,9 +93,12 @@ public partial class MainForm : Form
     }
     private void multipleSimulate(Graphics g)
     {
+        Directory.CreateDirectory(Path.GetDirectoryName(dataFilename) ?? "");
+        File.WriteAllText(dataFilename, "");
         for(int i = 1; i <= epsilonMax; i++)
         {
-            fullSimulate(i, g);
+            int n = fullSimulate(i, g);
+            File.AppendAllText(dataFilename, $"{i}:{n}\n");
         }
     }
     private double getDistance(PointF first, PointF second)
