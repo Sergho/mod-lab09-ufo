@@ -29,6 +29,8 @@ partial class MainForm
     private void InitializeComponent()
     {
         controlPanel = new Panel();
+        epsilonLabel = new Label();
+        epsilonLabelText = new Label();
         singleButton = new Button();
         multipleButton = new Button();
         toLabel = new Label();
@@ -36,14 +38,16 @@ partial class MainForm
         toLabelText = new Label();
         fromLabelText = new Label();
         canvasPanel = new Panel();
-        epsilonLabelText = new Label();
-        epsilonLabel = new Label();
+        nLabel = new Label();
+        nLabelText = new Label();
         controlPanel.SuspendLayout();
         SuspendLayout();
         // 
         // controlPanel
         // 
         controlPanel.BackColor = SystemColors.Control;
+        controlPanel.Controls.Add(nLabel);
+        controlPanel.Controls.Add(nLabelText);
         controlPanel.Controls.Add(epsilonLabel);
         controlPanel.Controls.Add(epsilonLabelText);
         controlPanel.Controls.Add(singleButton);
@@ -57,6 +61,25 @@ partial class MainForm
         controlPanel.Name = "controlPanel";
         controlPanel.Size = new Size(304, 620);
         controlPanel.TabIndex = 0;
+        // 
+        // epsilonLabel
+        // 
+        epsilonLabel.AutoSize = true;
+        epsilonLabel.Font = new Font("Segoe UI", 16F);
+        epsilonLabel.Location = new Point(108, 100);
+        epsilonLabel.Name = "epsilonLabel";
+        epsilonLabel.Size = new Size(0, 30);
+        epsilonLabel.TabIndex = 7;
+        // 
+        // epsilonLabelText
+        // 
+        epsilonLabelText.AutoSize = true;
+        epsilonLabelText.Font = new Font("Segoe UI", 16F);
+        epsilonLabelText.Location = new Point(12, 100);
+        epsilonLabelText.Name = "epsilonLabelText";
+        epsilonLabelText.Size = new Size(86, 30);
+        epsilonLabelText.TabIndex = 6;
+        epsilonLabelText.Text = "Epsilon:";
         // 
         // singleButton
         // 
@@ -129,24 +152,24 @@ partial class MainForm
         canvasPanel.TabIndex = 1;
         canvasPanel.Paint += canvasPanel_Paint;
         // 
-        // epsilonLabelText
+        // nLabel
         // 
-        epsilonLabelText.AutoSize = true;
-        epsilonLabelText.Font = new Font("Segoe UI", 16F);
-        epsilonLabelText.Location = new Point(12, 100);
-        epsilonLabelText.Name = "epsilonLabelText";
-        epsilonLabelText.Size = new Size(86, 30);
-        epsilonLabelText.TabIndex = 6;
-        epsilonLabelText.Text = "Epsilon:";
+        nLabel.AutoSize = true;
+        nLabel.Font = new Font("Segoe UI", 16F);
+        nLabel.Location = new Point(108, 147);
+        nLabel.Name = "nLabel";
+        nLabel.Size = new Size(0, 30);
+        nLabel.TabIndex = 9;
         // 
-        // epsilonLabel
+        // nLabelText
         // 
-        epsilonLabel.AutoSize = true;
-        epsilonLabel.Font = new Font("Segoe UI", 16F);
-        epsilonLabel.Location = new Point(108, 100);
-        epsilonLabel.Name = "epsilonLabel";
-        epsilonLabel.Size = new Size(0, 30);
-        epsilonLabel.TabIndex = 7;
+        nLabelText.AutoSize = true;
+        nLabelText.Font = new Font("Segoe UI", 16F);
+        nLabelText.Location = new Point(12, 147);
+        nLabelText.Name = "nLabelText";
+        nLabelText.Size = new Size(34, 30);
+        nLabelText.TabIndex = 8;
+        nLabelText.Text = "N:";
         // 
         // MainForm
         // 
@@ -173,4 +196,6 @@ partial class MainForm
     private Button singleButton;
     private Label epsilonLabelText;
     private Label epsilonLabel;
+    private Label nLabel;
+    private Label nLabelText;
 }

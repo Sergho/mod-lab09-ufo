@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Runtime.ExceptionServices;
 
 namespace StraightMovement;
@@ -9,7 +10,7 @@ public partial class MainForm : Form
     private readonly int pointSize = 20;
     private readonly int pathSize = 5;
     private readonly int stepSize = 5;
-    private readonly int singleEpsilon = 5;
+    private readonly int singleEpsilon = 1;
     private SimulationAction action = SimulationAction.Idle;
     public MainForm()
     {
@@ -24,13 +25,13 @@ public partial class MainForm : Form
         graphics.ScaleTransform(0.5f, 0.5f);
         graphics.Clear(Color.White);
 
-        drawPoint(fromPoint, pointSize, graphics, Brushes.Green);
-        drawPoint(toPoint, pointSize, graphics, Brushes.Red);
-
+        if (action == SimulationAction.Idle)
+        {
+            drawPoints(graphics);
+        }
         if (action == SimulationAction.Single)
         {
-            epsilonLabel.Text = singleEpsilon.ToString();
-            Simulate(singleEpsilon, 1, graphics);
+            fullSimulate(singleEpsilon, graphics);
         }
 
         action = SimulationAction.Idle;
@@ -39,12 +40,17 @@ public partial class MainForm : Form
     {
         g.FillEllipse(brush, point.X - (float)size / 2, point.Y - (float)size / 2, size, size);
     }
+    private void drawPoints(Graphics g)
+    {
+        drawPoint(fromPoint, pointSize, g, Brushes.Green);
+        drawPoint(toPoint, pointSize, g, Brushes.Red);
+    }
     private void updateLabels()
     {
         fromLabel.Text = fromPoint.ToString();
         toLabel.Text = toPoint.ToString();
     }
-    private bool Simulate(int epsilon, int n, Graphics g)
+    private bool simulate(int epsilon, int n, Graphics g)
     {
         double angle = FunctionManager.atan((double)Math.Abs(toPoint.Y - fromPoint.Y) / Math.Abs(toPoint.X - fromPoint.X), n);
         PointF current = fromPoint;
@@ -58,9 +64,26 @@ public partial class MainForm : Form
             double newDistance = getDistance(current, toPoint);
             if (newDistance > distance) return false;
             distance = newDistance;
+            Thread.Sleep(2);
         }
 
         return true;
+    }
+    private int fullSimulate(int epsilon, Graphics g)
+    {
+        int n = 0;
+        epsilonLabel.Text = epsilon.ToString();
+        do
+        {
+            g.Clear(Color.White);
+            drawPoints(g);
+            n++;
+            nLabel.Text = n.ToString();
+            Application.DoEvents();
+            Thread.Sleep(100);
+        }
+        while (!simulate(epsilon, n, g));
+        return n;
     }
     private double getDistance(PointF first, PointF second)
     {
