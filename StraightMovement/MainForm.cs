@@ -11,6 +11,7 @@ public partial class MainForm : Form
     private readonly int pathSize = 5;
     private readonly int stepSize = 5;
     private readonly int singleEpsilon = 1;
+    private readonly int epsilonMax = 25;
     private SimulationAction action = SimulationAction.Idle;
     public MainForm()
     {
@@ -32,6 +33,10 @@ public partial class MainForm : Form
         if (action == SimulationAction.Single)
         {
             fullSimulate(singleEpsilon, graphics);
+        }
+        if (action == SimulationAction.Multiple)
+        {
+            multipleSimulate(graphics);
         }
 
         action = SimulationAction.Idle;
@@ -64,7 +69,7 @@ public partial class MainForm : Form
             double newDistance = getDistance(current, toPoint);
             if (newDistance > distance) return false;
             distance = newDistance;
-            Thread.Sleep(2);
+            Thread.Sleep(action == SimulationAction.Single ? 2 : 0);
         }
 
         return true;
@@ -80,10 +85,17 @@ public partial class MainForm : Form
             n++;
             nLabel.Text = n.ToString();
             Application.DoEvents();
-            Thread.Sleep(100);
+            Thread.Sleep(action == SimulationAction.Single ? 100 : 0);
         }
         while (!simulate(epsilon, n, g));
         return n;
+    }
+    private void multipleSimulate(Graphics g)
+    {
+        for(int i = 1; i <= epsilonMax; i++)
+        {
+            fullSimulate(i, g);
+        }
     }
     private double getDistance(PointF first, PointF second)
     {
@@ -93,6 +105,12 @@ public partial class MainForm : Form
     private void singleButton_Click(object sender, EventArgs e)
     {
         action = SimulationAction.Single;
+        canvasPanel.Invalidate();
+    }
+
+    private void multipleButton_Click(object sender, EventArgs e)
+    {
+        action = SimulationAction.Multiple;
         canvasPanel.Invalidate();
     }
 }

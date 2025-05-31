@@ -29,6 +29,8 @@ partial class MainForm
     private void InitializeComponent()
     {
         controlPanel = new Panel();
+        nLabel = new Label();
+        nLabelText = new Label();
         epsilonLabel = new Label();
         epsilonLabelText = new Label();
         singleButton = new Button();
@@ -38,8 +40,6 @@ partial class MainForm
         toLabelText = new Label();
         fromLabelText = new Label();
         canvasPanel = new Panel();
-        nLabel = new Label();
-        nLabelText = new Label();
         controlPanel.SuspendLayout();
         SuspendLayout();
         // 
@@ -61,6 +61,25 @@ partial class MainForm
         controlPanel.Name = "controlPanel";
         controlPanel.Size = new Size(304, 620);
         controlPanel.TabIndex = 0;
+        // 
+        // nLabel
+        // 
+        nLabel.AutoSize = true;
+        nLabel.Font = new Font("Segoe UI", 16F);
+        nLabel.Location = new Point(108, 147);
+        nLabel.Name = "nLabel";
+        nLabel.Size = new Size(0, 30);
+        nLabel.TabIndex = 9;
+        // 
+        // nLabelText
+        // 
+        nLabelText.AutoSize = true;
+        nLabelText.Font = new Font("Segoe UI", 16F);
+        nLabelText.Location = new Point(12, 147);
+        nLabelText.Name = "nLabelText";
+        nLabelText.Size = new Size(34, 30);
+        nLabelText.TabIndex = 8;
+        nLabelText.Text = "N:";
         // 
         // epsilonLabel
         // 
@@ -103,6 +122,7 @@ partial class MainForm
         multipleButton.TabIndex = 4;
         multipleButton.Text = "Multiple Simulation";
         multipleButton.UseVisualStyleBackColor = true;
+        multipleButton.Click += multipleButton_Click;
         // 
         // toLabel
         // 
@@ -151,25 +171,6 @@ partial class MainForm
         canvasPanel.Size = new Size(340, 620);
         canvasPanel.TabIndex = 1;
         canvasPanel.Paint += canvasPanel_Paint;
-        // 
-        // nLabel
-        // 
-        nLabel.AutoSize = true;
-        nLabel.Font = new Font("Segoe UI", 16F);
-        nLabel.Location = new Point(108, 147);
-        nLabel.Name = "nLabel";
-        nLabel.Size = new Size(0, 30);
-        nLabel.TabIndex = 9;
-        // 
-        // nLabelText
-        // 
-        nLabelText.AutoSize = true;
-        nLabelText.Font = new Font("Segoe UI", 16F);
-        nLabelText.Location = new Point(12, 147);
-        nLabelText.Name = "nLabelText";
-        nLabelText.Size = new Size(34, 30);
-        nLabelText.TabIndex = 8;
-        nLabelText.Text = "N:";
         // 
         // MainForm
         // 
