@@ -1,3 +1,4 @@
+using ScottPlot;
 using System.Drawing;
 using System.Runtime.ExceptionServices;
 
@@ -13,6 +14,7 @@ public partial class MainForm : Form
     private readonly int singleEpsilon = 1;
     private readonly int epsilonMax = 25;
     private readonly string dataFilename = "../../../../result/data.txt";
+    private readonly string plotFilename = "../../../../result/plot.png";
     private SimulationAction action = SimulationAction.Idle;
     public MainForm()
     {
@@ -25,7 +27,7 @@ public partial class MainForm : Form
     {
         Graphics graphics = e.Graphics;
         graphics.ScaleTransform(0.5f, 0.5f);
-        graphics.Clear(Color.White);
+        graphics.Clear(System.Drawing.Color.White);
 
         if (action == SimulationAction.Idle)
         {
@@ -38,6 +40,7 @@ public partial class MainForm : Form
         if (action == SimulationAction.Multiple)
         {
             multipleSimulate(graphics);
+            buildPlot();
         }
 
         action = SimulationAction.Idle;
@@ -81,7 +84,7 @@ public partial class MainForm : Form
         epsilonLabel.Text = epsilon.ToString();
         do
         {
-            g.Clear(Color.White);
+            g.Clear(System.Drawing.Color.White);
             drawPoints(g);
             n++;
             nLabel.Text = n.ToString();
@@ -100,6 +103,34 @@ public partial class MainForm : Form
             int n = fullSimulate(i, g);
             File.AppendAllText(dataFilename, $"{i}:{n}\n");
         }
+    }
+    private void buildPlot()
+    {
+        string[] lines = File.ReadAllLines(dataFilename);
+
+        int[] x = new int[lines.Length];
+        int[] y = new int[lines.Length];
+
+        for(int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            string[] args = line.Split(':');
+            x[i] = int.Parse(args[0]);
+            y[i] = int.Parse(args[1]);
+        }
+        
+        Plot plot = new Plot();
+
+        plot.Title($"График зависимости N от точности попадания");
+        plot.XLabel("Точность попадания");
+        plot.YLabel("Количество членов ряда (N)");
+
+        var scatter = plot.Add.Scatter(x, y);
+        scatter.MarkerSize = 8;
+        scatter.LineWidth = 3;
+        scatter.Color = Colors.Red;
+
+        plot.SavePng(plotFilename, 1200, 800);
     }
     private double getDistance(PointF first, PointF second)
     {
